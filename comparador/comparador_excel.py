@@ -8,15 +8,15 @@ import pandas as pd
 coluna = str()
 
 def compara(sheet_a, sheet_b):
-    print('compara')
+    
     for result in sheet_a:
         for result_2 in sheet_b:
-            print(f'Comparando {result} com {result_2}')
+            # print(f'Comparando {result} com {result_2}')
             if result == result_2:
-                print(f'{result} = {result_2}')
+                # print(f'{result} = {result_2}')
                 output = open('./output.txt', 'a')
                 output.writelines(f'{result}\n')
-
+    
 def abre_excel(coluna):
     data = pd.read_excel (r'sheet_a.xlsx') 
     df = pd.DataFrame(data, columns= ['Host','ip'])
@@ -28,15 +28,16 @@ def abre_excel(coluna):
     sheet_a = df[coluna].tolist()
     global sheet_b
     sheet_b = df2[coluna].tolist()
-    print('abre_excel')
+    
     return(sheet_a, sheet_b)
     
 
 def main():
-    abre_excel('Host')
-    compara(sheet_a, sheet_b)
-    abre_excel('ip')
-    compara(sheet_a, sheet_b)
+    colunas = ['Host', 'ip']
+    for column in colunas:
+        abre_excel(column)
+        compara(sheet_a, sheet_b)
+    print("Comparação concluída com sucesso, verifique os itens repetidos no arquivo output.txt")
 
 if __name__ == "__main__":
     main()
