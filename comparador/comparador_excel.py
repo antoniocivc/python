@@ -5,6 +5,7 @@
 import asyncio
 from csv import writer
 import pandas as pd
+
 coluna = str()
 
 def compara(sheet_a, sheet_b):
@@ -18,22 +19,23 @@ def compara(sheet_a, sheet_b):
                 output.writelines(f'{result}\n')
     
 def abre_excel(coluna):
+
     data = pd.read_excel (r'sheet_a.xlsx') 
-    df = pd.DataFrame(data, columns= ['Host','ip'])
+    df = pd.DataFrame(data, columns= ['host','ip'])
     
     data2 = pd.read_excel (r'sheet_b.xlsx') 
-    df2 = pd.DataFrame(data2, columns= ['Host','ip'])
+    df2 = pd.DataFrame(data2, columns= ['host','ip'])
     
     global sheet_a
     sheet_a = df[coluna].tolist()
+
     global sheet_b
     sheet_b = df2[coluna].tolist()
     
     return(sheet_a, sheet_b)
-    
-
+   
 def main():
-    colunas = ['Host', 'ip']
+    colunas = ['host', 'ip']
     for column in colunas:
         abre_excel(column)
         compara(sheet_a, sheet_b)
